@@ -30,97 +30,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.LaunchedEffect
 
 
-
-//@Composable
-//fun BranchListScreen(
-//    onBranchClick: (Branch) -> Unit,
-//    favoriteBranchId: Int?,
-//    modifier: Modifier = Modifier
-//) {
-//    val branches = remember { BranchRepository.branches }
-//
-//    LazyColumn(
-//        modifier = modifier
-//            .padding(horizontal = 12.dp, vertical = 8.dp)
-//            .fillMaxSize()  // add fillMaxSize here to make sure touch area is full screen
-//    ) {
-//        items(branches.size) { index ->
-//            val branch = branches[index]
-//            BranchCard(
-//                branch = branch,
-//                isFavorite = branch.id == favoriteBranchId,
-//                onClick = { onBranchClick(branch) }
-//            )
-//        }
-//    }
-//}
-
-//@Composable
-//fun BranchListScreen(
-//    onBranchClick: (Branch) -> Unit,
-//    favoriteBranchId: Int?,
-//    modifier: Modifier = Modifier
-//) {
-//    val branches = remember { BranchRepository.branches }
-//
-//    LazyColumn(
-//        modifier = modifier
-//            .fillMaxSize()
-//            .padding(horizontal = 12.dp, vertical = 8.dp),
-//        contentPadding = PaddingValues(vertical = 8.dp),
-//        verticalArrangement = Arrangement.spacedBy(8.dp)
-//    ) {
-//        items(branches.size) { index ->
-//            val branch = branches[index]
-//            BranchCard(
-//                branch = branch,
-//                isFavorite = branch.id == favoriteBranchId,
-//                onClick = { onBranchClick(branch) }
-//            )
-//        }
-//    }
-////}
-//@Composable
-//fun BranchListScreen(
-//    onBranchClick: (Branch) -> Unit,
-//    favoriteBranchId: Int?,
-//    modifier: Modifier = Modifier
-//) {
-//    var searchText by remember { mutableStateOf("") }
-//
-//
-//
-//    // Use the pure function to get filtered data
-//    val displayedBranches = remember(searchText) {
-//        BranchRepository.searchBranches(searchText)
-//    }
-//
-//    Column(
-//        modifier = modifier
-//            .fillMaxSize()
-//            .padding(horizontal = 12.dp, vertical = 8.dp)
-//    ) {
-//        SearchBar(
-//            searchText = searchText,
-//            onTextChange = { searchText = it }
-//        )
-//
-//        LazyColumn(
-//            modifier = Modifier.fillMaxSize(),
-//            contentPadding = PaddingValues(vertical = 8.dp),
-//            verticalArrangement = Arrangement.spacedBy(8.dp)
-//        ) {
-//            items(displayedBranches) { branch ->
-//                BranchCard(
-//                    branch = branch,
-//                    isFavorite = branch.id == favoriteBranchId,
-//                    onClick = { onBranchClick(branch) }
-//                )
-//            }
-//        }
-//    }
-//}
-
 @Composable
 fun BranchListScreen(
     onBranchClick: (Branch) -> Unit,
@@ -156,12 +65,14 @@ fun BranchListScreen(
                 Text("Filter 24/7")
             }
             Button(onClick = {
-                searchText = ""
-                BranchRepository.resetBranches()
+                searchText = "" //clear search text
+                BranchRepository.resetBranches() //show all branches again
             }) {
                 Text("Reset")
             }
         }
+
+
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -170,12 +81,9 @@ fun BranchListScreen(
             contentPadding = PaddingValues(vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            //takes the current list of branches and displays each one using branchCard
             items(displayedBranches) { branch ->
-                BranchCard(
-                    branch = branch,
-                    isFavorite = branch.id == favoriteBranchId,
-                    onClick = { onBranchClick(branch) }
-                )
+                BranchCard(branch = branch, isFavorite = branch.id == favoriteBranchId, onClick = { onBranchClick(branch) })
             }
         }
     }

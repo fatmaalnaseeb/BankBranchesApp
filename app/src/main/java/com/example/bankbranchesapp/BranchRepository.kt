@@ -60,10 +60,15 @@ object BranchRepository {
     fun resetBranches() {
         branchList.value = branches
     }
-    //search
-    fun searchBranches(query: String): List<Branch> {
-        if (query.isBlank()) return branches //if no input return all branches
-        return branches.filter { it.name.contains(query, ignoreCase = true) }
+    //search -> here will filters the branch based on the search keyword
+    fun searchBranches(keyword: String){
+        //if keyword is blank then shows all the branches
+        branchList.value = if (keyword.isBlank()){
+            branches
+        //if its include keyword will give me branch that include this keyword
+        } else {
+            branches.filter { it.name.contains(keyword, ignoreCase = true) }
+        }
     }
     var branchList = mutableStateOf(branches)
     var favoriteBranchId = mutableStateOf<Int?>(null)
